@@ -90,16 +90,14 @@ class Email(APIView):
         try:
             user = Users.objects.get(email_id=email_id)
             if user:
-<<<<<<< HEAD
                 return Response({'Successfull': 'Email Id exists' + user.email_id}, status.HTTP_200_OK)
         except Users.DoesNotExist:
             user = Users()
             user.email_id = request.POST.get('email_id')
-=======
-                return Response({'Check Successfull': 'Email Id exists' + user.email_id}, status.HTTP_200_OK)
+            user.save()
+            return Response({'Check Successfull': 'Email Id exists' + user.email_id}, status.HTTP_200_OK)
         except Users.DoesNotExist:
             user = Users(email_id=email_id)
->>>>>>> 2089177f1e5e6470dfac7ff484c260d139dd355e
             user.save()
             return Response({'Success': 'User Created' + user.email_id}, status.HTTP_201_CREATED)
 
@@ -187,7 +185,6 @@ class GetProducts(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-<<<<<<< HEAD
         print(request.POST)
         seller_email = request.POST.get("seller_email")
         print(seller_email)
@@ -201,11 +198,9 @@ class GetProducts(APIView):
             serializer = ProductSerializer(products, many=True)
             return Response(serializer.data)
         return JsonResponse([{'Error': 'No Ads Posted'}], safe=False)
-=======
-        seller_email = request.POST.get('seller_email')
-        products = Products.objects.filter(seller_email=seller_email)
-        resp = ""
-        for product in products:
-            resp += '/media/' + str(product.image) + ', '
-        return Response({'Success': resp})
->>>>>>> 2089177f1e5e6470dfac7ff484c260d139dd355e
+        # seller_email = request.POST.get('seller_email')
+        # products = Products.objects.filter(seller_email=seller_email)
+        # resp = ""
+        # for product in products:
+        #     resp += '/media/' + str(product.image) + ', '
+        # return Response({'Success': resp})
