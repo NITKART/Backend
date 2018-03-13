@@ -15,19 +15,13 @@ from .serializers import UserSerializer, ProductSerializer, ImageSerializer
 
 class UserView(APIView):
 
-    # def get(self, request):
-    #     # items = Images.objects.all()
-    #     # serializer = ImageSerializer(items, many=True)
-    #     # return Response(serializer.data)
-    #     products = Products.objects.all()
-    #     serializer = ProductSerializer(products, many=True)
-    #     return Response(serializer.data)
-
-    def delete(self, request):
-        Images.objects.filter(id=1).delete()
-        Images.objects.filter(id=2).delete()
-        Images.objects.filter(id=3).delete()
-        return Response({'suc': 'succ'})
+    def get(self, request):
+        # items = Images.objects.all()
+        # serializer = ImageSerializer(items, many=True)
+        # return Response(serializer.data)
+        products = Products.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
 
 
 class Register(APIView):
@@ -204,3 +198,10 @@ class GetProducts(APIView):
         # for product in products:
         #     resp += '/media/' + str(product.image) + ', '
         # return Response({'Success': resp})
+
+class Delete(APIView):
+
+    def delete(self, request):
+        id = request.POST.get('id')
+        Products.objects.filter(id = id).delete()
+        return Response({'Success' : 'Deleted'})
